@@ -1,0 +1,17 @@
+{
+  "name": "extpackets-docs",
+  "version": "1.0.0",
+  "description": "Official Mintlify Documentation Repository for ExtPackets Suite",
+  "scripts": {
+    "dev": "npx mintlify dev",
+    "build": "npx mintlify build"
+  },
+  "keywords": [
+    "mintlify",
+    "docs",
+    "extpackets",
+    "documentation"
+  ],
+  "author": "Cristiano Bleve",
+  "license": "MIT"
+}

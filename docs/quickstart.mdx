@@ -1,0 +1,81 @@
+---
+title: "Quickstart Guide"
+description: "Get up and running with ExtPackets components via CDN or NPM in under 2 minutes."
+---
+
+## Installation Methods
+
+You can use any component from the ExtPackets suite via **NPM / Yarn / PNPM** or directly via **CDN Script Tags** in HTML.
+
+---
+
+### Option 1: Via CDN (HTML `<script>` Tag)
+
+Include the CSS stylesheet and JS bundle directly into your HTML file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ExtPackets Showcase</title>
+
+  <!-- 1. ExtPlayer CSS Stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@cristianobleve/player@latest/dist/ext-player.css">
+
+  <!-- 2. ExtPlayer JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/@cristianobleve/player@latest/dist/ext-player.min.js"></script>
+</head>
+<body>
+
+  <!-- Container Element -->
+  <div id="video-player"></div>
+
+  <script>
+    // Initialize ExtPlayer
+    const player = new ExtPlayer('#video-player', {
+      src: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+      title: '🎬 Sintel Movie Trailer',
+      theme: 'monochrome', // 'monochrome' | 'obsidian' | 'cinema' | 'nordic'
+      autoplay: false
+    });
+  </script>
+
+</body>
+</html>
+```
+
+---
+
+### Option 2: Via NPM / Package Managers
+
+Install the package in your React, Vue, Svelte, Next.js, or Vite application:
+
+```bash
+npm install @cristianobleve/player
+```
+
+Then import the library and stylesheet in your application:
+
+```javascript
+import ExtPlayer from '@cristianobleve/player';
+import '@cristianobleve/player/css';
+
+const player = new ExtPlayer('#video-container', {
+  src: 'https://www.youtube.com/watch?v=L_LUpnjgPso', // Auto YouTube Embed!
+  title: 'YouTube Stream'
+});
+```
+
+---
+
+## Global CDN Bundle URLs
+
+If hosting directly or using custom CDN paths:
+
+| Component | Bundle JS | Stylesheet CSS |
+|---|---|---|
+| **ExtPlayer** | `https://cdn.cristianobleve.com/packets/player/latest/ext-player.min.js` | `https://cdn.cristianobleve.com/packets/player/latest/ext-player.css` |
+| **ExtAudio** | `https://cdn.cristianobleve.com/packets/audio/latest/ext-audio.min.js` | Built-in CSS |
+| **ExtLightbox** | `https://cdn.cristianobleve.com/packets/lightbox/latest/ext-lightbox.min.js` | Built-in CSS |
+| **ExtUploader** | `https://cdn.cristianobleve.com/packets/uploader/latest/ext-uploader.min.js` | Built-in CSS |

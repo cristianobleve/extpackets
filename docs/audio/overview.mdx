@@ -1,0 +1,40 @@
+---
+title: "ExtAudio Overview"
+description: "Glassmorphism Audio Player with Realtime Web Audio Waveform Visualizer & Playlist support."
+---
+
+# ExtAudio (`@cristianobleve/audio`)
+
+**ExtAudio** is a standalone Web Audio API player featuring an interactive, SoundCloud-style rounded bar waveform visualizer, dark slate Shadcn UI card styling, and multi-track playlist support.
+
+## Features
+
+- 🎵 **Realtime SoundCloud-Style Waveform**: 55 high-density rounded bars (`roundRect`) that pulse smoothly in sync with audio frequency using Web Audio API & sine wave calculations.
+- 🖤 **Shadcn Dark Mode Card**: Compact `420px` width container with `#09090b` pitch black background and `#27272a` borders.
+- 📜 **Playlist Support**: Seamlessly load and switch tracks with cover artwork, artist metadata, and next/prev controls.
+- ⏱️ **Interactive Scrubber**: Seek to any position by clicking the progress timeline or waveform bars.
+
+---
+
+## Basic Usage
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@cristianobleve/audio@latest/dist/ext-audio.min.js"></script>
+
+<div id="audio-player"></div>
+
+<script>
+  new ExtAudio({
+    target: '#audio-player',
+    playlist: [
+      {
+        id: 1,
+        title: 'Midnight Drive',
+        artist: 'ExtPackets Synthwave',
+        coverUrl: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=400',
+        src: 'https://vjs.zencdn.net/v/oceans.mp4'
+      }
+    ]
+  });
+</script>
+```

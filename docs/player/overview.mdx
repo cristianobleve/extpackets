@@ -1,0 +1,36 @@
+---
+title: "ExtPlayer Overview"
+description: "A feature-rich, high-performance HTML5 video player with YouTube, HLS, DRM, and custom themes."
+---
+
+# ExtPlayer (`@cristianobleve/player`)
+
+**ExtPlayer** is an ultra-modular HTML5 video player crafted for modern web applications. It supports direct MP4/WebM files, automatic YouTube & Vimeo embedding, HLS adaptive streaming (`.m3u8`), Encrypted Media Extensions (DRM), and auto-poster frame extraction.
+
+## Features
+
+- 🖤 **Geometric Dark Monochrome Design**: Sharp `6px` radiuses, high contrast white accents, and clean UI controls (`theme: 'monochrome'`).
+- 🌐 **Universal Provider Engine (`VideoProviderPlugin`)**: Paste any YouTube, Vimeo, Dailymotion, Twitch, or Cloud Storage link (Google Drive, Dropbox, AWS S3/R2) and ExtPlayer will resolve and render the embed automatically.
+- 📡 **Adaptive HLS Streaming**: Built-in `HLS.js` engine for seamless `.m3u8` playlist loading and quality switching.
+- 🖼️ **Auto-Poster Snapshot Extraction**: Automatically extracts a crisp thumbnail frame from the video if no poster image is specified.
+- 🤖 **Smart Autoplay Policy Handler**: Muted fallback with a tap-to-unmute banner if unmuted autoplay is restricted by the browser.
+- ⌨️ **Keyboard Shortcuts & Mouse Gestures**: Space (Play/Pause), F (Fullscreen), M (Mute), J/L (Seek +/- 10s), Numbers 0-9 (Jump 0-90%).
+
+---
+
+## Basic Usage
+
+```html
+<div id="player"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@cristianobleve/player@latest/dist/ext-player.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@cristianobleve/player@latest/dist/ext-player.css">
+
+<script>
+  const player = new ExtPlayer('#player', {
+    src: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+    title: '🎬 Sintel Movie Trailer',
+    theme: 'monochrome'
+  });
+</script>
+```

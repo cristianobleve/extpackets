@@ -1,0 +1,79 @@
+---
+title: "ExtPlayer API Reference"
+description: "Methods, events, and programmatic API reference for ExtPlayer."
+---
+
+# API & Methods
+
+You can programmatically control ExtPlayer and listen to lifecycle events using the returned player instance.
+
+```javascript
+const player = new ExtPlayer('#video-container', {
+  src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+});
+```
+
+---
+
+## Methods API
+
+### Playback Control
+
+- `player.play(): Promise<void>`: Starts video playback.
+- `player.pause(): void`: Pauses video playback.
+- `player.togglePlay(): void`: Toggles between play and pause states.
+- `player.seek(seconds: number): void`: Seeks to a specific timestamp (in seconds).
+- `player.setPlaybackRate(rate: number): void`: Sets playback speed multiplier (e.g. `0.5`, `1.0`, `1.5`, `2.0`).
+
+### Audio Control
+
+- `player.setVolume(volume: number): void`: Sets volume level between `0.0` and `1.0`.
+- `player.setMuted(muted: boolean): void`: Mutes or unmutes audio.
+- `player.toggleMute(): void`: Toggles mute state.
+
+### Layout & Fullscreen
+
+- `player.toggleFullscreen(): Promise<void>`: Toggles native browser fullscreen mode.
+- `player.togglePictureInPicture(): Promise<void>`: Toggles Picture-in-Picture (PiP) mode.
+
+---
+
+## Event Listeners
+
+Use `player.on(eventName, callback)` to react to player state changes:
+
+```javascript
+// Listen to playback state
+player.on('play', () => console.log('Playback started'));
+player.on('pause', () => console.log('Playback paused'));
+player.on('ended', () => console.log('Video finished'));
+
+// Progress update
+player.on('timeupdate', ({ currentTime, duration }) => {
+  console.log(`Current position: ${currentTime.toFixed(1)}s / ${duration.toFixed(1)}s`);
+});
+
+// Quality change event
+player.on('qualitychange', ({ quality }) => {
+  console.log(`Switched resolution to: ${quality.label}`);
+});
+
+// Volume change
+player.on('volumechange', ({ volume, muted }) => {
+  console.log(`Volume: ${volume}, Muted: ${muted}`);
+});
+```
+
+---
+
+## Event Reference
+
+| Event Name | Payload Object | Description |
+|---|---|---|
+| `'play'` | `void` | Fired when playback starts |
+| `'pause'` | `void` | Fired when video is paused |
+| `'timeupdate'` | `{ currentTime, duration }` | Fired continuously as video position changes |
+| `'volumechange'` | `{ volume, muted }` | Fired when volume or mute state changes |
+| `'fullscreenchange'` | `{ isFullscreen }` | Fired when entering/exiting fullscreen |
+| `'qualitychange'` | `{ quality, bitrate }` | Fired when quality level switches |
+| `'error'` | `{ error }` | Fired when media playback error occurs |

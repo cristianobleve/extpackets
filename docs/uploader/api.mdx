@@ -1,0 +1,40 @@
+---
+title: "ExtUploader API & Options"
+description: "Options reference and callbacks for ExtUploader."
+---
+
+# Configuration & Callbacks
+
+```javascript
+const uploader = new ExtUploader({
+  target: '#dropzone-target',
+  endpoint: 'https://api.mywebsite.com/upload',
+  maxFileSizeMB: 100,
+  allowedTypes: ['image/png', 'image/jpeg', 'application/pdf'],
+  onSuccess: (response) => {
+    console.log('Server response:', response);
+  },
+  onError: (err) => {
+    console.error('Upload failed:', err);
+  }
+});
+```
+
+---
+
+## Options Reference
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `target` | `string \| HTMLElement` | *(required)* | Selector string or DOM element |
+| `endpoint` | `string` | *(required)* | Backend POST HTTP upload endpoint URL |
+| `maxFileSizeMB` | `number` | `100` | Maximum file size in Megabytes |
+| `allowedTypes` | `string[]` | `[]` | Allowed MIME types array (e.g. `['image/*', 'application/pdf']`) |
+| `onSuccess` | `(response: any) => void` | `undefined` | Callback fired on successful upload completion |
+| `onError` | `(err: Error) => void` | `undefined` | Callback fired on upload error |
+
+---
+
+## Methods API
+
+- `uploader.uploadFile(file: File)`: Programmatically triggers upload of a `File` object.

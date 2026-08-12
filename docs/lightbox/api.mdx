@@ -1,0 +1,46 @@
+---
+title: "ExtLightbox API & Options"
+description: "Options reference and programmatic methods for ExtLightbox."
+---
+
+# Configuration & Methods
+
+```javascript
+const lightbox = new ExtLightbox({
+  items: [
+    { src: 'https://domain.com/photo1.jpg', caption: 'Photo 1', alt: 'Sample 1' },
+    { src: 'https://domain.com/photo2.jpg', caption: 'Photo 2', alt: 'Sample 2' }
+  ],
+  startIndex: 0
+});
+```
+
+---
+
+## Options Reference
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `items` | `LightboxItem[]` | *(required)* | Array of image gallery items |
+| `startIndex` | `number` | `0` | Initial image index to display |
+
+---
+
+## LightboxItem Interface
+
+```typescript
+export interface LightboxItem {
+  src: string;
+  caption?: string;
+  alt?: string;
+}
+```
+
+---
+
+## Methods API
+
+- `lightbox.open(index?: number)`: Opens the lightbox modal overlay at specified index.
+- `lightbox.close()`: Closes the modal.
+- `lightbox.next()`: Navigates to next image.
+- `lightbox.prev()`: Navigates to previous image.

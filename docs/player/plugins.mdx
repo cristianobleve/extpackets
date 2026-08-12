@@ -1,0 +1,80 @@
+---
+title: "ExtPlayer Plugin System"
+description: "How to extend ExtPlayer by creating custom plugins or registering core plugins."
+---
+
+# ExtPlayer Plugin Architecture
+
+ExtPlayer is designed with an extensible plugin system. Core features (HLS playback, Video Provider resolution, UI, Keyboard shortcuts, DRM) are written as plugins implementing the `ExtPlayerPlugin` interface.
+
+---
+
+## The `ExtPlayerPlugin` Interface
+
+Every plugin must implement the following TypeScript interface:
+
+```typescript
+export interface ExtPlayerPlugin {
+  name: string;
+  version: string;
+  init(player: ExtPlayerInstance): void;
+  destroy?(): void;
+}
+```
+
+---
+
+## Writing a Custom Plugin
+
+Here is an example of a custom **Watermark Plugin** that displays a logo overlay on top of the video:
+
+```typescript
+import { ExtPlayerPlugin, ExtPlayerInstance } from '@cristianobleve/player';
+
+export class WatermarkPlugin implements ExtPlayerPlugin {
+  public name = 'WatermarkPlugin';
+  public version = '1.0.0';
+
+  private watermarkEl!: HTMLElement;
+
+  public init(player: ExtPlayerInstance): void {
+    // Create overlay element
+    this.watermarkEl = document.createElement('div');
+    this.watermarkEl.className = 'custom-watermark';
+    this.watermarkEl.innerHTML = '⚡ My Brand';
+    this.watermarkEl.style.cssText = `
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      pointer-events: none;
+      z-index: 15;
+    `;
+
+    player.containerElement.appendChild(this.watermarkEl);
+  }
+
+  public destroy(): void {
+    if (this.watermarkEl) {
+      this.watermarkEl.remove();
+    }
+  }
+}
+
+// Register the custom plugin
+const player = new ExtPlayer('#video');
+player.registerPlugin(new WatermarkPlugin());
+```
+
+---
+
+## Retrieving Active Plugins
+
+You can retrieve active plugin instances from any player instance:
+
+```javascript
+const hlsPlugin = player.getPlugin('ExtPlayerHLS');
+const providerPlugin = player.getPlugin('ExtPlayerVideoProvider');
+```

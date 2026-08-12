@@ -1,0 +1,59 @@
+---
+title: "ExtPlayer Configuration & Options"
+description: "Complete reference of configuration options, themes, and properties for ExtPlayer."
+---
+
+# Configuration & Options
+
+When initializing `new ExtPlayer(target, options)`, you can pass a configuration object to customize theme, controls, poster, autoplay, and DRM settings.
+
+```javascript
+const player = new ExtPlayer('#video-target', {
+  src: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
+  title: '🎬 Sintel Trailer',
+  theme: 'monochrome',
+  autoPoster: true,
+  autoplay: false,
+  volume: 0.8
+});
+```
+
+---
+
+## Options Table
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `target` | `string \| HTMLElement` | *(required)* | DOM element or CSS selector string |
+| `src` | `string` | `''` | Primary video source URL (MP4, HLS `.m3u8`, YouTube, Vimeo, Cloud link) |
+| `poster` | `string` | `''` | Custom image poster URL |
+| `autoPoster` | `boolean` | `true` | Auto-extract thumbnail frame from video if poster is omitted |
+| `title` | `string` | `''` | Title text displayed in the top header overlay bar |
+| `showTitle` | `boolean` | `true` | Show or hide the top header title bar |
+| `theme` | `'monochrome' \| 'obsidian' \| 'cinema' \| 'nordic'` | `'monochrome'` | Preset theme selection |
+| `autoplay` | `boolean \| 'muted' \| 'play'` | `false` | Smart Autoplay with automatic muted fallback |
+| `loop` | `boolean` | `false` | Loop playback continuously |
+| `muted` | `boolean` | `false` | Start video in muted state |
+| `volume` | `number` | `1.0` | Initial volume level (`0.0` to `1.0`) |
+| `useDefaultUI` | `boolean` | `true` | Enable built-in UI overlay controls |
+| `useShortcuts` | `boolean` | `true` | Enable keyboard shortcut keybindings |
+| `drm` | `DRMOptions` | `undefined` | Widevine / FairPlay / PlayReady DRM license options |
+
+---
+
+## Preset Themes
+
+ExtPlayer comes with 4 built-in preset themes:
+
+1. **`monochrome` (Default)**: Geometric pitch-black background (`#000000`), sharp `6px` radiuses, high contrast white controls.
+2. **`obsidian`**: Apple TV+ / Vercel dark slate aesthetic with deep navy tint and subtle glassmorphism.
+3. **`cinema`**: Warm dark charcoal with amber highlight accents.
+4. **`nordic`**: Scandinavian arctic teal tint with crisp typography.
+
+```javascript
+// Example setting theme
+const player = new ExtPlayer('#player', {
+  src: 'https://vjs.zencdn.net/v/oceans.mp4',
+  theme: 'monochrome'
+});
+```

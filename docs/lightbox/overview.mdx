@@ -1,0 +1,37 @@
+---
+title: "ExtLightbox Overview"
+description: "High-performance modal gallery viewer with mouse wheel zoom, drag-pan, and keyboard shortcuts."
+---
+
+# ExtLightbox (`@cristianobleve/lightbox`)
+
+**ExtLightbox** is an ultra-fast image gallery modal viewer. Built with dark glassmorphism backdrop blur (`backdrop-filter: blur(16px)`), keyboard controls (ESC, Arrow keys), and smooth scale-pan calculations.
+
+## Features
+
+- 🔍 **Interactive Wheel Zoom**: Smooth scaling from `0.8x` up to `3.5x` using mouse wheel or pinch gestures.
+- ⌨️ **Keyboard Navigation**: Press **Escape** to close, **Right Arrow** for next photo, **Left Arrow** for previous photo.
+- 🎨 **Shadcn Dialog Style**: Minimalist pill counter (`1 / 4`), top bar buttons, and high-definition image drop shadows.
+
+---
+
+## Basic Usage
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@cristianobleve/lightbox@latest/dist/ext-lightbox.min.js"></script>
+
+<button id="open-btn">Open Photo Gallery</button>
+
+<script>
+  const gallery = new ExtLightbox({
+    items: [
+      { src: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1200', caption: 'Cinema Aesthetic' },
+      { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200', caption: 'Neon Lights' }
+    ]
+  });
+
+  document.querySelector('#open-btn').addEventListener('click', () => {
+    gallery.open(0); // Open at image index 0
+  });
+</script>
+```

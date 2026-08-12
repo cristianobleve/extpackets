@@ -1,0 +1,56 @@
+---
+title: "ExtAudio API & Options"
+description: "Options reference and programmatic methods for ExtAudio."
+---
+
+# Configuration & Methods
+
+```javascript
+const audio = new ExtAudio({
+  target: '#audio-target',
+  playlist: [
+    {
+      id: 'track-1',
+      title: 'Neon Nights',
+      artist: 'Retro Wave',
+      coverUrl: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=400',
+      src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+    }
+  ],
+  autoplay: false
+});
+```
+
+---
+
+## Options Reference
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `target` | `string \| HTMLElement` | *(required)* | Selector string or DOM element |
+| `playlist` | `AudioTrack[]` | `[]` | Array of audio track items |
+| `autoplay` | `boolean` | `false` | Start playback automatically |
+
+---
+
+## AudioTrack Interface
+
+```typescript
+export interface AudioTrack {
+  id: string | number;
+  title: string;
+  artist: string;
+  album?: string;
+  coverUrl?: string;
+  src: string;
+}
+```
+
+---
+
+## Methods API
+
+- `audio.togglePlay()`: Toggles play/pause state.
+- `audio.loadTrack(index: number)`: Loads track at specified playlist index.
+- `audio.next()`: Advances to next track in playlist.
+- `audio.prev()`: Moves to previous track.

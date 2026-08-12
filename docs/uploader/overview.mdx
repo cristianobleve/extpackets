@@ -1,0 +1,33 @@
+---
+title: "ExtUploader Overview"
+description: "Drag & Drop File Uploader with chunking support, progress bar, and instant dropzone styling."
+---
+
+# ExtUploader (`@cristianobleve/uploader`)
+
+**ExtUploader** is a sleek drag-and-drop file upload component styled in Shadcn UI dark mode (`border-dashed #27272a`, cloud icon, smooth progress bar).
+
+## Features
+
+- 📁 **Drag & Drop Zone**: Instant drag-over highlights and file drop detection.
+- ⚡ **XHR Progress Tracking**: Realtime uploading percentage animation (`0%` to `100%`) with emerald green success state (`✓ Upload complete`).
+- 🤖 **Fallback Demo Simulation**: Automatically simulates smooth upload progress if testing without a live backend endpoint.
+
+---
+
+## Basic Usage
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@cristianobleve/uploader@latest/dist/ext-uploader.min.js"></script>
+
+<div id="uploader"></div>
+
+<script>
+  new ExtUploader({
+    target: '#uploader',
+    endpoint: '/api/upload',
+    maxFileSizeMB: 50,
+    onSuccess: (res) => console.log('File uploaded!', res)
+  });
+</script>
+```

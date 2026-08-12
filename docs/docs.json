@@ -1,0 +1,79 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "ExtPackets Suite",
+  "theme": "mint",
+  "logo": {
+    "light": "https://img.cristianobleve.com/img/pictures/ext_v1.png",
+    "dark": "https://img.cristianobleve.com/img/pictures/ext_v1.png",
+    "href": "https://github.com/cristianobleve/extpackets"
+  },
+  "favicon": "https://img.cristianobleve.com/img/pictures/ext_v1.png",
+  "colors": {
+    "primary": "#3b82f6",
+    "light": "#60a5fa",
+    "dark": "#09090b"
+  },
+  "topbarCtaButton": {
+    "name": "GitHub Repo",
+    "url": "https://github.com/cristianobleve/extpackets"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "ExtPlayer NPM",
+        "href": "https://www.npmjs.com/package/@cristianobleve/player"
+      },
+      {
+        "label": "GitHub Monorepo",
+        "href": "https://github.com/cristianobleve/extpackets"
+      }
+    ]
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      },
+      {
+        "group": "ExtPlayer (Video)",
+        "pages": [
+          "player/overview",
+          "player/configuration",
+          "player/api",
+          "player/plugins"
+        ]
+      },
+      {
+        "group": "ExtAudio (Audio Waveform)",
+        "pages": [
+          "audio/overview",
+          "audio/api"
+        ]
+      },
+      {
+        "group": "ExtLightbox (Gallery)",
+        "pages": [
+          "lightbox/overview",
+          "lightbox/api"
+        ]
+      },
+      {
+        "group": "ExtUploader (Dropzone)",
+        "pages": [
+          "uploader/overview",
+          "uploader/api"
+        ]
+      },
+      {
+        "group": "Releases",
+        "pages": [
+          "changelog"
+        ]
+      }
+    ]
+  }
+}
