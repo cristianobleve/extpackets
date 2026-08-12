@@ -1,0 +1,18 @@
+{
+  "name": "extpackets-monorepo",
+  "private": true,
+  "version": "1.0.1",
+  "description": "ExtPackets - Modular library packages for services",
+  "workspaces": [
+    "packets/*"
+  ],
+  "scripts": {
+    "dev:player": "npm --prefix packets/player run dev",
+    "build:player": "npm --prefix packets/player run build",
+    "build:transcoder": "npm --prefix packets/transcoder run build",
+    "build": "npm --prefix packets/player run build && npm --prefix packets/transcoder run build"
+  },
+  "keywords": [],
+  "author": "Cristiano Bleve",
+  "license": "MIT"
+}

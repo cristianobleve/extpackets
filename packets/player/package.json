@@ -1,0 +1,61 @@
+{
+  "name": "@cristianobleve/player",
+  "version": "1.0.1",
+  "description": "Ultra-modular, modern Glassmorphism HTML5 Video Player with DRM, Themes, and Plugin support",
+  "type": "module",
+  "main": "./dist/ext-player.cjs",
+  "module": "./dist/ext-player.js",
+  "unpkg": "./dist/ext-player.min.js",
+  "jsdelivr": "./dist/ext-player.min.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ext-player.js",
+      "require": "./dist/ext-player.cjs"
+    },
+    "./css": "./dist/ext-player.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": [
+    "*.css",
+    "./dist/ext-player.css"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npx vite build && npx tsc --noEmit false --emitDeclarationOnly --declaration --outDir dist",
+    "prepublishOnly": "npm run build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "video-player",
+    "html5-player",
+    "drm",
+    "eme",
+    "hls",
+    "dash",
+    "glassmorphism",
+    "extpackets",
+    "video",
+    "player",
+    "media"
+  ],
+  "author": "Cristiano Bleve",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "@cristianobleve/player": "^1.0.0",
+    "hls.js": "^1.6.18",
+    "react-icons": "^5.7.0"
+  }
+}

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExtPlayer Luxury Themes & Playground | ExtPackets</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090b10;
+      --bg-card: rgba(18, 22, 31, 0.75);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.2);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-card);
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 680px;
+      line-height: 1.6;
+    }
+
+    /* Player Showcase Frame */
+    .player-wrapper {
+      position: relative;
+      border-radius: 20px;
+      padding: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    #player-target {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    /* Grid layout for features & demo integration */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 850px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    pre, code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    pre {
+      background: #050608;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 16px;
+      color: #cbd5e1;
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button.demo-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button.demo-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Event Console Log */
+    #event-log {
+      height: 120px;
+      background: #050608;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #cbd5e1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .log-item {
+      opacity: 0.9;
+    }
+    .log-item .time {
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">ExtPackets Player</div>
+      <h1>Preset Temi & Modularià UI</h1>
+      <p class="subtitle">
+        Design ultra-pulito ed elegante ispirato ai prodotti Apple TV+ e Vercel, privo di effetti rumorosi o stile "Cyberpunk". Supporto nativo ai temi preimpostati (Obsidian, Cinema, Nordic, Monochrome).
+      </p>
+    </header>
+
+    <!-- Main Player Showcase -->
+    <div class="player-wrapper">
+      <div id="player-target"></div>
+    </div>
+
+    <!-- Grid Controls & Code Sample -->
+    <div class="grid">
+      <!-- Card 1: Modular Config Examples -->
+      <div class="card">
+        <h3>🎨 Preset Temi integrati</h3>
+        <p style="color: var(--text-muted); font-size: 14px;">
+          Scegli un tema elegante o personalizza i colori via CSS:
+        </p>
+        <pre><code>const player = new ExtPlayer('#player', {
+  src: 'https://vjs.zencdn.net/v/oceans.mp4',
+  title: '🌊 Ocean Wildlife Showcase',
+  
+  // Temi Integrati: 'obsidian' | 'cinema' | 'nordic' | 'monochrome'
+  theme: 'obsidian',
+  
+  loop: true,
+  ambientGlow: false
+});
+
+// Cambia tema dinamicamente:
+player.setTheme('cinema');</code></pre>
+      </div>
+
+      <!-- Card 2: Interactive Controls & Event Log -->
+      <div class="card">
+        <h3>🔗 Prova una Sorgente Video (URL / Cloud)</h3>
+        <div style="display: flex; gap: 8px; width: 100%;">
+          <input 
+            type="url" 
+            id="custom-url-input" 
+            placeholder="Incolla URL (.m3u8 HLS, .mp4, .mov, Google Drive, S3)..."
+            value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+            style="flex: 1; background: #050608; border: 1px solid var(--border-card); border-radius: 10px; padding: 10px 14px; color: var(--text-main); font-family: inherit; font-size: 13px; outline: none;"
+          />
+          <button class="demo-btn" id="btn-load-url" style="background: var(--accent); border-color: var(--accent); color: #fff;">
+            Carica
+          </button>
+        </div>
+
+        <h3 style="margin-top: 8px;">⚡ Cambio Temi & Opzioni al Volo</h3>
+        <div class="btn-group">
+          <button class="demo-btn" id="btn-theme-obsidian">🖤 Obsidian (Default)</button>
+          <button class="demo-btn" id="btn-theme-cinema">🍿 Cinema Gold</button>
+          <button class="demo-btn" id="btn-theme-nordic">❄️ Nordic Teal</button>
+          <button class="demo-btn" id="btn-theme-monochrome">⚪ Monochrome Studio</button>
+          <button class="demo-btn" id="btn-toggle-toolbar">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="15" width="18" height="6" rx="2"/><path d="M7 11V3m10 8V3"/></svg>
+            Toggle Toolbar
+          </button>
+          <button class="demo-btn" id="btn-toggle-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+            Toggle Titolo
+          </button>
+          <button class="demo-btn" id="btn-toggle-time">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>
+            Toggle Tempo
+          </button>
+          <button class="demo-btn" id="btn-toggle-loop">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+            Toggle Loop
+          </button>
+        </div>
+
+        <h4 style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Console Eventi:</h4>
+        <div id="event-log">
+          <div class="log-item"><span class="time">[System]</span> Player initialized with Obsidian Theme</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { ExtPlayer } from './src/index.ts';
+
+    let currentControlsState = true;
+    let currentTimeState = true;
+    let currentTitleState = true;
+
+    // Initialize player with HLS stream
+    const player = new ExtPlayer('#player-target', {
+      src: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+      poster: 'https://vjs.zencdn.net/v/oceans.png',
+      title: '🌊 Ocean Wildlife (HLS Demo)',
+      theme: 'monochrome',
+      loop: true,
+      ambientGlow: false,
+      fontFamily: "'Outfit', sans-serif",
+      defaultQuality: 'auto'
+    });
+
+    // Logging helper
+    const logContainer = document.getElementById('event-log');
+    function appendLog(msg) {
+      const time = new Date().toLocaleTimeString();
+      const div = document.createElement('div');
+      div.className = 'log-item';
+      div.innerHTML = `<span class="time">[${time}]</span> ${msg}`;
+      logContainer.appendChild(div);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    // Bind event listeners to log
+    player.on('play', () => appendLog('Event: <strong>play</strong>'));
+    player.on('pause', () => appendLog('Event: <strong>pause</strong>'));
+    player.on('ready', () => appendLog('Event: <strong>ready</strong> (metadata loaded)'));
+    player.on('loopchange', ({ loop }) => appendLog(`Event: <strong>loopchange</strong> -> ${loop}`));
+    player.on('qualitychange', ({ quality, bitrate }) => {
+      const mbps = bitrate ? ` (${(bitrate / 1000000).toFixed(1)} Mbps)` : '';
+      appendLog(`Event: <strong>qualitychange</strong> -> Qualità: <strong>${quality.label}</strong>${mbps}`);
+    });
+    player.on('volumechange', ({ volume }) => appendLog(`Event: <strong>volumechange</strong> (vol: ${Math.round(volume * 100)}%)`));
+
+    // Theme Switchers
+    document.getElementById('btn-theme-obsidian').addEventListener('click', () => {
+      player.setTheme('obsidian');
+      appendLog('Tema cambiato in: <strong>Obsidian</strong> (Apple Dark Slate)');
+    });
+
+    document.getElementById('btn-theme-cinema').addEventListener('click', () => {
+      player.setTheme('cinema');
+      appendLog('Tema cambiato in: <strong>Cinema</strong> (Warm Gold)');
+    });
+
+    document.getElementById('btn-theme-nordic').addEventListener('click', () => {
+      player.setTheme('nordic');
+      appendLog('Tema cambiato in: <strong>Nordic</strong> (Scandinavian Teal)');
+    });
+
+    document.getElementById('btn-theme-monochrome').addEventListener('click', () => {
+      player.setTheme('monochrome');
+      appendLog('Tema cambiato in: <strong>Monochrome</strong> (Studio Black & White)');
+    });
+
+    // Interactive Toggles
+    document.getElementById('btn-toggle-toolbar').addEventListener('click', () => {
+      currentControlsState = !currentControlsState;
+      const controlsBar = player.containerElement.querySelector('.ext-player-controls');
+      if (controlsBar) {
+        if (currentControlsState) {
+          controlsBar.classList.remove('hidden');
+          appendLog('Toolbar controlli: <strong>VISIBILE</strong>');
+        } else {
+          controlsBar.classList.add('hidden');
+          appendLog('Toolbar controlli: <strong>NASCOSTA</strong>');
+        }
+      }
+    });
+
+    document.getElementById('btn-toggle-time').addEventListener('click', () => {
+      currentTimeState = !currentTimeState;
+      const timeEl = player.containerElement.querySelector('.ext-player-time');
+      if (timeEl) {
+        if (currentTimeState) {
+          timeEl.classList.remove('hidden');
+          appendLog('Tempo (hh:mm:ss): <strong>VISIBILE</strong>');
+        } else {
+          timeEl.classList.add('hidden');
+          appendLog('Tempo (hh:mm:ss): <strong>NASCOSTO</strong>');
+        }
+      }
+    });
+
+    document.getElementById('btn-toggle-loop').addEventListener('click', () => {
+      player.toggleLoop();
+    });
+
+    document.getElementById('btn-toggle-title').addEventListener('click', () => {
+      currentTitleState = !currentTitleState;
+      const titleEl = player.containerElement.querySelector('.ext-player-header-title');
+      if (titleEl) {
+        if (currentTitleState) {
+          titleEl.classList.remove('hidden');
+          appendLog('Titolo video: <strong>VISIBILE</strong>');
+        } else {
+          titleEl.classList.add('hidden');
+          appendLog('Titolo video: <strong>NASCOSTO</strong>');
+        }
+      }
+    });
+    // Custom URL Loader logic
+    const urlInput = document.getElementById('custom-url-input');
+    const btnLoadUrl = document.getElementById('btn-load-url');
+
+    function handleCustomUrlLoad() {
+      const url = urlInput.value.trim();
+      if (!url) return;
+      player.loadSource(url);
+      appendLog(`Caricamento sorgente video: <strong>${url}</strong>`);
+    }
+
+    btnLoadUrl.addEventListener('click', handleCustomUrlLoad);
+    urlInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleCustomUrlLoad();
+    });
+  </script>
+</body>
+</html>

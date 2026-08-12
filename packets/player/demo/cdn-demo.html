@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CDN Integration Test Page - ExtPlayer</title>
+  
+  <!-- Simulate CDN CSS Link -->
+  <link rel="stylesheet" href="../dist/ext-player.css">
+  
+  <style>
+    body {
+      background-color: #0b0f19;
+      color: #ffffff;
+      font-family: system-ui, sans-serif;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .wrapper {
+      max-width: 800px;
+      width: 100%;
+    }
+    h2 {
+      margin-bottom: 8px;
+    }
+    p {
+      color: #94a3b8;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <h2>Esempio Integrazione CDN tramite &lt;script&gt; Tag</h2>
+    <p>Questo file prova l'inizializzazione sia dichiarativa (con attributo <code>data-ext-player</code>) che tramite il globale <code>window.ExtPlayer</code>.</p>
+
+    <!-- Declarative Auto-Init Player -->
+    <div 
+      data-ext-player 
+      data-src="https://vjs.zencdn.net/v/oceans.mp4" 
+      data-poster="https://vjs.zencdn.net/v/oceans.png"
+      data-theme="#ec4899">
+    </div>
+  </div>
+
+  <!-- Simulate CDN Script Bundle -->
+  <script src="../dist/ext-player.min.js"></script>
+</body>
+</html>

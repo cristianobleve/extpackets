@@ -1,0 +1,27 @@
+{
+  "name": "@extpackets/transcoder",
+  "version": "1.0.0",
+  "description": "Ultra-fast, lightweight MP4 to HLS multi-bitrate transcoder for ExtPackets Video Player",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "extpackets-transcode": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "hls",
+    "transcoder",
+    "ffmpeg",
+    "video-converter",
+    "extpackets"
+  ],
+  "author": "Cristiano Bleve",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "typescript": "^5.3.3"
+  }
+}
