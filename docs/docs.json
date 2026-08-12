@@ -3,11 +3,11 @@
   "name": "ExtPackets Suite",
   "theme": "mint",
   "logo": {
-    "light": "https://img.cristianobleve.com/img/pictures/ext_v1.png",
-    "dark": "https://img.cristianobleve.com/img/pictures/ext_v1.png",
+    "light": "https://img.cristianobleve.com/img/pictures/spark.png",
+    "dark": "https://img.cristianobleve.com/img/pictures/spark.png",
     "href": "https://github.com/cristianobleve/extpackets"
   },
-  "favicon": "https://img.cristianobleve.com/img/pictures/ext_v1.png",
+  "favicon": "https://img.cristianobleve.com/img/pictures/spark.png",
   "colors": {
     "primary": "#3b82f6",
     "light": "#60a5fa",
