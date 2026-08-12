@@ -4,6 +4,8 @@ import { UIPlugin } from './plugins/ui/UIPlugin';
 import { ShortcutsPlugin } from './plugins/shortcuts/ShortcutsPlugin';
 import { DRMPlugin } from './plugins/drm/DRMPlugin';
 import { HLSPlugin } from './plugins/hls/HLSPlugin';
+import { VideoProviderPlugin } from './plugins/provider/VideoProviderPlugin';
+import { CaptionsPlugin } from './plugins/captions/CaptionsPlugin';
 
 export class ExtPlayer extends PlayerCore {
   constructor(target: string | HTMLElement, options: Partial<ExtPlayerOptions> = {}) {
@@ -14,8 +16,14 @@ export class ExtPlayer extends PlayerCore {
 
     super(fullOptions);
 
+    // Register Captions Plugin
+    this.registerPlugin(new CaptionsPlugin());
+
     // Register Automatic HLS Engine Plugin
     this.registerPlugin(new HLSPlugin());
+
+    // Register Automatic Video Provider Plugin (YouTube, Vimeo, Dailymotion, Twitch, Cloud Storage)
+    this.registerPlugin(new VideoProviderPlugin());
 
     // Register Default UI if enabled
     if (this.options.useDefaultUI) {

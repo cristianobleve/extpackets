@@ -45,6 +45,7 @@ export class UIPlugin implements ExtPlayerPlugin {
 
   private activeSpeed: number = 1.0;
   private activeQuality: string = 'Auto';
+  private activeTrackId: string | null = null;
   private hideControlsTimeout?: number;
 
   public init(player: ExtPlayerInstance): void {
@@ -386,6 +387,24 @@ export class UIPlugin implements ExtPlayerPlugin {
         ${isLooping ? '✓' : ''}
       </div>
 
+      ${this.player.options.tracks && this.player.options.tracks.length > 0 ? `
+        <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; padding: 8px 8px 4px 8px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.1);">Subtitles</div>
+        <div class="ext-player-menu-item ${!this.activeTrackId ? 'active' : ''}" data-track-id="off">
+          <span>Off</span>
+          ${!this.activeTrackId ? '✓' : ''}
+        </div>
+        ${this.player.options.tracks.map((t, idx) => {
+          const tId = t.id || `track-${idx}`;
+          const isActive = this.activeTrackId === tId;
+          return `
+            <div class="ext-player-menu-item ${isActive ? 'active' : ''}" data-track-id="${tId}">
+              <span>${t.label}</span>
+              ${isActive ? '✓' : ''}
+            </div>
+          `;
+        }).join('')}
+      ` : ''}
+
       <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; padding: 8px 8px 4px 8px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.1);">Speed</div>
       ${speeds.map(speed => `
         <div class="ext-player-menu-item ${this.activeSpeed === speed ? 'active' : ''}" data-speed="${speed}">
@@ -407,6 +426,20 @@ export class UIPlugin implements ExtPlayerPlugin {
         }).join('')}
       ` : ''}
     `;
+
+    this.settingsMenu.querySelectorAll('[data-track-id]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const trackId = (e.currentTarget as HTMLElement).dataset.trackId;
+        this.activeTrackId = trackId === 'off' ? null : (trackId || null);
+        
+        const textTracks = this.player.videoElement.textTracks;
+        for (let i = 0; i < textTracks.length; i++) {
+          textTracks[i].mode = (this.activeTrackId && i.toString() === this.activeTrackId) ? 'showing' : 'disabled';
+        }
+        
+        this.settingsMenu.classList.remove('visible');
+      });
+    });
 
     this.settingsMenu.querySelectorAll('[data-speed]').forEach(item => {
       item.addEventListener('click', (e) => {

@@ -1,0 +1,26 @@
+{
+  "name": "@cristianobleve/uploader",
+  "version": "1.0.0",
+  "description": "Modern Drag & Drop Large File Uploader with Chunking, Instant Preview, Progress, and Glassmorphism UI",
+  "type": "module",
+  "main": "./dist/ext-uploader.cjs",
+  "module": "./dist/ext-uploader.js",
+  "unpkg": "./dist/ext-uploader.min.js",
+  "jsdelivr": "./dist/ext-uploader.min.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npx vite build && npx tsc --noEmit false --emitDeclarationOnly --declaration --outDir dist"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vite": "^5.4.0"
+  }
+}

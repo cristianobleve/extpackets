@@ -1,0 +1,26 @@
+{
+  "name": "@cristianobleve/lightbox",
+  "version": "1.0.0",
+  "description": "High-performance Glassmorphism Image & Video Gallery Viewer with Pinch-Zoom, Pan, and Touch Gestures",
+  "type": "module",
+  "main": "./dist/ext-lightbox.cjs",
+  "module": "./dist/ext-lightbox.js",
+  "unpkg": "./dist/ext-lightbox.min.js",
+  "jsdelivr": "./dist/ext-lightbox.min.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npx vite build && npx tsc --noEmit false --emitDeclarationOnly --declaration --outDir dist"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vite": "^5.4.0"
+  }
+}

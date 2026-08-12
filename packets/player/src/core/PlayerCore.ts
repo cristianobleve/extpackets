@@ -24,6 +24,8 @@ export class PlayerCore implements ExtPlayerInstance {
     this.options = {
       target: userOptions.target,
       src: userOptions.src || '',
+      tracks: userOptions.tracks || [],
+      thumbsVttUrl: userOptions.thumbsVttUrl || '',
       poster: userOptions.poster || '',
       autoPoster: userOptions.autoPoster ?? true,
       title: userOptions.title || '',

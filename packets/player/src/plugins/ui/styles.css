@@ -161,6 +161,7 @@
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 2;
 }
 
 .ext-player-root.paused .ext-player-overlay-gradient,
