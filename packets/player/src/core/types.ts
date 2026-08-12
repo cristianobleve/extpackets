@@ -23,22 +23,11 @@ export interface QualityLevel {
   src?: string;     // Direct video source URL for multi-bitrate MP4s
 }
 
-export interface TrackItem {
-  id?: string;
-  kind?: 'subtitles' | 'captions' | 'descriptions';
-  label: string;
-  srclang?: string;
-  src: string;
-  default?: boolean;
-}
-
 export interface ExtPlayerOptions {
   /** Target element selector or HTMLElement */
   target: string | HTMLElement;
   /** Primary video source URL */
   src?: string;
-  /** Subtitles & Closed Captions tracks (.vtt / .srt) */
-  tracks?: TrackItem[];
   /** Sprite VTT URL for hover thumbnail scrubbing preview */
   thumbsVttUrl?: string;
   /** Video poster image URL */
@@ -112,7 +101,6 @@ export type PlayerEventMap = {
   'pipchange': { isPip: boolean };
   'qualitychange': { quality: QualityLevel; bitrate?: number };
   'qualitieschange': { qualities: QualityLevel[] };
-  'trackchange': { track: TrackItem | null };
   'autoplaypolicy': { status: 'success' | 'fallback_muted' | 'blocked'; muted: boolean };
   'postergenerated': { posterUrl: string };
   'drmstatus': { status: 'requesting' | 'authorized' | 'failed'; error?: Error };
@@ -139,6 +127,7 @@ export interface ExtPlayerInstance {
   getQualities(): QualityLevel[];
   setQualities(qualities: QualityLevel[]): void;
   getCurrentQuality(): QualityLevel | undefined;
+  getPlugin<T extends ExtPlayerPlugin = ExtPlayerPlugin>(name: string): T | undefined;
   toggleFullscreen(): void;
   togglePictureInPicture(): void;
   loadSource(src: string, options?: Partial<ExtPlayerOptions>): void;

@@ -37,64 +37,151 @@ export class ExtLightbox {
         .ext-lightbox-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(8, 10, 15, 0.92);
-          backdrop-filter: blur(24px);
-          z-index: 99999;
+          background: rgba(9, 9, 11, 0.95);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          z-index: 999999;
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-family: system-ui, -apple-system, sans-serif;
+          justify-content: space-between;
+          padding: 24px;
+          color: #f4f4f5;
+          font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          box-sizing: border-box;
         }
+
+        .ext-lightbox-header {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          z-index: 10;
+        }
+
+        .ext-lightbox-counter {
+          background: #18181b;
+          border: 1px solid #27272a;
+          color: #a1a1aa;
+          font-size: 0.8125rem;
+          font-weight: 500;
+          padding: 6px 14px;
+          border-radius: 9999px;
+          letter-spacing: 0.3px;
+        }
+
+        .ext-lightbox-btn-close {
+          background: #18181b;
+          border: 1px solid #27272a;
+          color: #f4f4f5;
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .ext-lightbox-btn-close:hover {
+          background: #27272a;
+          border-color: #3f3f46;
+        }
+
+        .ext-lightbox-btn-close svg {
+          width: 18px;
+          height: 18px;
+          fill: currentColor;
+        }
+
+        .ext-lightbox-viewport {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          max-height: 80vh;
+          overflow: hidden;
+        }
+
         .ext-lightbox-img {
           max-width: 90vw;
-          max-height: 80vh;
+          max-height: 75vh;
           border-radius: 12px;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-          transition: transform 0.2s ease;
+          border: 1px solid #27272a;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+          transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
           user-select: none;
+          object-fit: contain;
         }
-        .ext-lightbox-caption {
-          margin-top: 16px;
-          font-size: 0.95rem;
-          color: #94a3b8;
-        }
-        .ext-lightbox-close {
-          position: absolute;
-          top: 24px;
-          right: 24px;
-          background: rgba(255,255,255,0.1);
-          border: none;
-          color: #fff;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          cursor: pointer;
-          font-size: 1.5rem;
-        }
+
         .ext-lightbox-nav {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background: rgba(255,255,255,0.1);
-          border: none;
-          color: #fff;
-          width: 48px;
-          height: 48px;
+          background: #18181b;
+          border: 1px solid #27272a;
+          color: #f4f4f5;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           cursor: pointer;
-          font-size: 1.5rem;
+          transition: background 0.15s ease, border-color 0.15s ease;
+          z-index: 10;
         }
+
+        .ext-lightbox-nav:hover {
+          background: #27272a;
+          border-color: #3f3f46;
+        }
+
         .ext-lightbox-nav.prev { left: 24px; }
         .ext-lightbox-nav.next { right: 24px; }
+
+        .ext-lightbox-nav svg {
+          width: 20px;
+          height: 20px;
+          fill: currentColor;
+        }
+
+        .ext-lightbox-footer {
+          margin-top: 16px;
+          background: #18181b;
+          border: 1px solid #27272a;
+          border-radius: 12px;
+          padding: 10px 20px;
+          font-size: 0.875rem;
+          color: #a1a1aa;
+          text-align: center;
+          max-width: 600px;
+        }
       </style>
 
-      <button class="ext-lightbox-close" id="close">&times;</button>
-      <button class="ext-lightbox-nav prev" id="prev">&#10094;</button>
-      <button class="ext-lightbox-nav next" id="next">&#10095;</button>
-      <img class="ext-lightbox-img" id="img" src="${item.src}" alt="${item.alt || ''}" />
-      <div class="ext-lightbox-caption">${item.caption || ''}</div>
+      <div class="ext-lightbox-header">
+        <div class="ext-lightbox-counter">${this.currentIndex + 1} / ${this.options.items.length}</div>
+        <button class="ext-lightbox-btn-close" id="close" title="Close">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+
+      <div class="ext-lightbox-viewport">
+        <button class="ext-lightbox-nav prev" id="prev" title="Previous">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+
+        <img class="ext-lightbox-img" id="img" src="${item.src}" alt="${item.alt || ''}" />
+
+        <button class="ext-lightbox-nav next" id="next" title="Next">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+
+      ${item.caption ? `<div class="ext-lightbox-footer">${item.caption}</div>` : '<div></div>'}
     `;
 
     document.body.appendChild(this.overlay);
@@ -116,15 +203,17 @@ export class ExtLightbox {
     img.addEventListener('wheel', (e) => {
       e.preventDefault();
       this.scale += e.deltaY * -0.002;
-      this.scale = Math.min(Math.max(0.8, this.scale), 4);
+      this.scale = Math.min(Math.max(0.8, this.scale), 3.5);
       img.style.transform = `scale(${this.scale})`;
     });
 
-    document.addEventListener('keydown', (e) => {
+    const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') this.close();
       if (e.key === 'ArrowRight') this.next();
       if (e.key === 'ArrowLeft') this.prev();
-    });
+    };
+
+    document.addEventListener('keydown', handleKeydown);
   }
 
   public next(): void {

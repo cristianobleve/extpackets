@@ -5,7 +5,6 @@ import { ShortcutsPlugin } from './plugins/shortcuts/ShortcutsPlugin';
 import { DRMPlugin } from './plugins/drm/DRMPlugin';
 import { HLSPlugin } from './plugins/hls/HLSPlugin';
 import { VideoProviderPlugin } from './plugins/provider/VideoProviderPlugin';
-import { CaptionsPlugin } from './plugins/captions/CaptionsPlugin';
 
 export class ExtPlayer extends PlayerCore {
   constructor(target: string | HTMLElement, options: Partial<ExtPlayerOptions> = {}) {
@@ -15,9 +14,6 @@ export class ExtPlayer extends PlayerCore {
     };
 
     super(fullOptions);
-
-    // Register Captions Plugin
-    this.registerPlugin(new CaptionsPlugin());
 
     // Register Automatic HLS Engine Plugin
     this.registerPlugin(new HLSPlugin());

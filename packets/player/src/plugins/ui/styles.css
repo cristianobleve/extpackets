@@ -1,68 +1,68 @@
-/* ExtPlayer Refined Luxury UI Design System & Preset Themes */
+/* ExtPlayer Geometric Dark Monochrome Design System */
 
 :root {
-  --ext-theme-color: #3b82f6;
-  --ext-theme-glow: rgba(59, 130, 246, 0.2);
-  --ext-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --ext-bg-glass: rgba(18, 22, 31, 0.72);
-  --ext-bg-glass-hover: rgba(28, 34, 48, 0.88);
-  --ext-border-glass: rgba(255, 255, 255, 0.08);
-  --ext-text-primary: #f8fafc;
-  --ext-text-secondary: #94a3b8;
-  --ext-radius: 16px;
-  --ext-radius-sm: 8px;
-  --ext-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --ext-theme-color: #ffffff;
+  --ext-theme-glow: rgba(255, 255, 255, 0.14);
+  --ext-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ext-bg-glass: rgba(5, 5, 7, 0.94);
+  --ext-bg-glass-hover: rgba(18, 18, 22, 0.96);
+  --ext-border-glass: rgba(255, 255, 255, 0.14);
+  --ext-text-primary: #ffffff;
+  --ext-text-secondary: #71717a;
+  --ext-radius: 6px;
+  --ext-radius-sm: 4px;
+  --ext-transition: all 0.2s ease;
 }
 
 /* Built-in Theme Presets */
 
 /* 1. Theme Obsidian (Apple / Vercel Luxury Dark Slate) */
 .ext-player-root.theme-obsidian {
-  --ext-theme-color: #3b82f6;
-  --ext-theme-glow: rgba(59, 130, 246, 0.2);
-  --ext-bg-glass: rgba(15, 18, 25, 0.75);
-  --ext-bg-glass-hover: rgba(25, 30, 42, 0.9);
-  --ext-border-glass: rgba(255, 255, 255, 0.08);
+  --ext-theme-color: #ffffff;
+  --ext-theme-glow: rgba(255, 255, 255, 0.15);
+  --ext-bg-glass: rgba(5, 5, 7, 0.94);
+  --ext-bg-glass-hover: rgba(18, 18, 22, 0.96);
+  --ext-border-glass: rgba(255, 255, 255, 0.14);
 }
 
-/* 2. Theme Cinema (Warm Charcoal & Gold Amber) */
+/* 2. Theme Cinema (Dark Charcoal & White) */
 .ext-player-root.theme-cinema {
-  --ext-theme-color: #f59e0b;
-  --ext-theme-glow: rgba(245, 158, 11, 0.2);
-  --ext-bg-glass: rgba(18, 14, 11, 0.78);
-  --ext-bg-glass-hover: rgba(32, 25, 19, 0.92);
-  --ext-border-glass: rgba(245, 158, 11, 0.12);
+  --ext-theme-color: #ffffff;
+  --ext-theme-glow: rgba(255, 255, 255, 0.15);
+  --ext-bg-glass: rgba(5, 5, 7, 0.95);
+  --ext-bg-glass-hover: rgba(18, 18, 22, 0.96);
+  --ext-border-glass: rgba(255, 255, 255, 0.14);
 }
 
-/* 3. Theme Nordic (Scandinavian Arctic Teal) */
+/* 3. Theme Nordic (Scandinavian Dark) */
 .ext-player-root.theme-nordic {
-  --ext-theme-color: #06b6d4;
-  --ext-theme-glow: rgba(6, 182, 212, 0.2);
-  --ext-bg-glass: rgba(10, 20, 26, 0.75);
-  --ext-bg-glass-hover: rgba(18, 34, 44, 0.9);
-  --ext-border-glass: rgba(255, 255, 255, 0.08);
+  --ext-theme-color: #ffffff;
+  --ext-theme-glow: rgba(255, 255, 255, 0.15);
+  --ext-bg-glass: rgba(5, 5, 7, 0.94);
+  --ext-bg-glass-hover: rgba(18, 18, 22, 0.96);
+  --ext-border-glass: rgba(255, 255, 255, 0.14);
 }
 
 /* 4. Theme Monochrome (Minimalist Studio Black & White) */
 .ext-player-root.theme-monochrome {
   --ext-theme-color: #ffffff;
   --ext-theme-glow: rgba(255, 255, 255, 0.15);
-  --ext-bg-glass: rgba(12, 12, 12, 0.82);
-  --ext-bg-glass-hover: rgba(25, 25, 25, 0.95);
-  --ext-border-glass: rgba(255, 255, 255, 0.12);
+  --ext-bg-glass: rgba(5, 5, 7, 0.94);
+  --ext-bg-glass-hover: rgba(18, 18, 22, 0.96);
+  --ext-border-glass: rgba(255, 255, 255, 0.14);
 }
 
 .ext-player-root {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background-color: #08090d;
+  background-color: #000000;
   border-radius: var(--ext-radius);
   overflow: hidden;
   font-family: var(--ext-font-family);
   user-select: none;
   color: var(--ext-text-primary);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--ext-border-glass);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--ext-border-glass);
   transition: box-shadow 0.3s ease;
 }
 
@@ -105,7 +105,7 @@
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--ext-border-glass);
   padding: 6px 14px;
-  border-radius: 20px;
+  border-radius: var(--ext-radius);
   font-size: 13px;
   font-weight: 600;
   color: var(--ext-text-primary);
@@ -128,8 +128,8 @@
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--ext-border-glass);
   color: var(--ext-text-primary);
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 8px 14px;
+  border-radius: var(--ext-radius);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.3px;
@@ -225,7 +225,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--ext-border-glass);
-  border-radius: 12px;
+  border-radius: var(--ext-radius);
   padding: 10px 16px;
   display: flex;
   flex-direction: column;
@@ -349,7 +349,7 @@
   color: var(--ext-text-secondary);
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: var(--ext-radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -452,7 +452,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--ext-border-glass);
-  border-radius: 12px;
+  border-radius: var(--ext-radius);
   padding: 8px;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
   display: flex;
@@ -476,7 +476,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
-  border-radius: 6px;
+  border-radius: var(--ext-radius-sm);
   font-size: 12px;
   color: var(--ext-text-secondary);
   cursor: pointer;

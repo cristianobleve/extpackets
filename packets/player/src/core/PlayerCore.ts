@@ -24,7 +24,6 @@ export class PlayerCore implements ExtPlayerInstance {
     this.options = {
       target: userOptions.target,
       src: userOptions.src || '',
-      tracks: userOptions.tracks || [],
       thumbsVttUrl: userOptions.thumbsVttUrl || '',
       poster: userOptions.poster || '',
       autoPoster: userOptions.autoPoster ?? true,
@@ -363,6 +362,10 @@ export class PlayerCore implements ExtPlayerInstance {
 
   public getCurrentQuality(): QualityLevel | undefined {
     return this.currentQuality;
+  }
+
+  public getPlugin<T extends ExtPlayerPlugin = ExtPlayerPlugin>(name: string): T | undefined {
+    return this.pluginManager.getPlugin<T>(name);
   }
 
   public async toggleFullscreen(): Promise<void> {

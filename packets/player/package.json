@@ -1,6 +1,6 @@
 {
   "name": "@cristianobleve/player",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Ultra-modular, modern Glassmorphism HTML5 Video Player with DRM, Themes, and Plugin support",
   "type": "module",
   "main": "./dist/ext-player.cjs",
@@ -54,7 +54,6 @@
     "vite": "^5.1.4"
   },
   "dependencies": {
-    "@cristianobleve/player": "^1.0.0",
     "hls.js": "^1.6.18",
     "react-icons": "^5.7.0"
   }
