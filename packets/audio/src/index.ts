@@ -167,3 +167,7 @@ export class ExtAudio {
     draw();
   }
 }
+
+if (typeof window !== 'undefined') {
+  (window as any).ExtAudio = ExtAudio;
+}

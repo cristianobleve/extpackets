@@ -143,3 +143,7 @@ export class ExtUploader {
     xhr.send(formData);
   }
 }
+
+if (typeof window !== 'undefined') {
+  (window as any).ExtUploader = ExtUploader;
+}

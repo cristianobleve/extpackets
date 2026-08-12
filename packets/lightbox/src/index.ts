@@ -146,3 +146,7 @@ export class ExtLightbox {
     }
   }
 }
+
+if (typeof window !== 'undefined') {
+  (window as any).ExtLightbox = ExtLightbox;
+}
