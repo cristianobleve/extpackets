@@ -27,6 +27,11 @@ export class ExtLightbox {
   private isDrmBlackout: boolean = false;
 
   private handleKeydown = (e: KeyboardEvent) => {
+    // Immediate DRM shield trigger on Meta (Windows key) or PrintScreen
+    if (e.key === 'Meta' || e.key === 'OS' || e.code?.includes('Meta') || e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'p') || (e.ctrlKey && e.shiftKey && (e.key === 's' || e.key === 'S' || e.key === 'I'))) {
+      this.triggerDrmShield();
+    }
+
     if (e.key === 'Escape') {
       this.close();
       return;
@@ -55,9 +60,14 @@ export class ExtLightbox {
       this.rotate();
       return;
     }
-    // Screenshot / PrintScreen interception for DRM
-    if (e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'p') || (e.ctrlKey && e.shiftKey && (e.key === 's' || e.key === 'S' || e.key === 'I'))) {
-      this.triggerDrmShield();
+  };
+
+  private handleKeyup = (e: KeyboardEvent) => {
+    if (e.key === 'Meta' || e.key === 'OS' || e.code?.includes('Meta')) {
+      // If user released Windows key and window is still focused, restore
+      if (document.hasFocus()) {
+        setTimeout(() => this.hideDrmShield(), 300);
+      }
     }
   };
 
@@ -69,7 +79,7 @@ export class ExtLightbox {
 
   private handleWindowFocus = () => {
     if (this.options.drm !== false && this.isDrmBlackout) {
-      setTimeout(() => this.hideDrmShield(), 200);
+      setTimeout(() => this.hideDrmShield(), 250);
     }
   };
 
@@ -78,7 +88,7 @@ export class ExtLightbox {
       if (document.visibilityState === 'hidden') {
         this.triggerDrmShield();
       } else {
-        setTimeout(() => this.hideDrmShield(), 200);
+        setTimeout(() => this.hideDrmShield(), 250);
       }
     }
   };
@@ -97,6 +107,7 @@ export class ExtLightbox {
 
     this.cleanupListeners();
     document.addEventListener('keydown', this.handleKeydown);
+    document.addEventListener('keyup', this.handleKeyup);
     window.addEventListener('blur', this.handleWindowBlur);
     window.addEventListener('focus', this.handleWindowFocus);
     document.addEventListener('visibilitychange', this.handleVisibilityChange);
@@ -167,6 +178,45 @@ export class ExtLightbox {
   public rotate(): void {
     this.rotation = (this.rotation + 90) % 360;
     this.updateTransform();
+  }
+
+  private updateSlide(direction: 'next' | 'prev' = 'next'): void {
+    if (!this.overlay) return;
+
+    const item = this.options.items[this.currentIndex] || { src: '', caption: '', alt: '' };
+    const total = this.options.items.length;
+
+    const img = this.overlay.querySelector('#img') as HTMLImageElement;
+    const counterBadge = this.overlay.querySelector('.ext-lightbox-counter-text');
+    const footerCaption = this.overlay.querySelector('.ext-lightbox-footer-caption');
+
+    if (counterBadge) {
+      counterBadge.textContent = `${this.currentIndex + 1} / ${total}`;
+    }
+
+    if (footerCaption) {
+      footerCaption.textContent = item.caption || 'Documento Ospite';
+    }
+
+    this.scale = 1;
+    this.rotation = 0;
+    this.translateX = 0;
+    this.translateY = 0;
+    this.updateTransform();
+
+    if (img) {
+      // Smooth slide transition
+      img.style.transition = 'opacity 0.12s ease, transform 0.12s ease';
+      img.style.opacity = '0.3';
+      img.style.transform = `scale(0.96) translate(${direction === 'next' ? '15px' : '-15px'}, 0)`;
+
+      setTimeout(() => {
+        img.src = item.src;
+        img.alt = item.alt || '';
+        img.style.opacity = '1';
+        img.style.transform = 'scale(1) translate(0, 0)';
+      }, 80);
+    }
   }
 
   private render(): void {
@@ -257,7 +307,7 @@ export class ExtLightbox {
         .ext-lightbox-toolbar {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 6px;
           background: rgba(255, 255, 255, 0.08);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
@@ -278,8 +328,10 @@ export class ExtLightbox {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, color 0.15s ease;
           padding: 0;
+          transform: scale(1);
+          transform-origin: center center;
         }
 
         .ext-lightbox-tool-btn:hover {
@@ -289,7 +341,7 @@ export class ExtLightbox {
         }
 
         .ext-lightbox-tool-btn:active {
-          transform: scale(0.94);
+          transform: scale(0.94) !important;
         }
 
         .ext-lightbox-tool-btn svg {
@@ -301,6 +353,7 @@ export class ExtLightbox {
           stroke-linecap: round;
           stroke-linejoin: round;
           display: block;
+          pointer-events: none;
         }
 
         .ext-lightbox-btn-close {
@@ -344,7 +397,7 @@ export class ExtLightbox {
           border-radius: 18px;
           border: 1px solid rgba(255, 255, 255, 0.18);
           box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.1);
-          transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+          transition: filter 0.2s ease;
           user-select: none;
           -webkit-user-select: none;
           object-fit: contain;
@@ -352,11 +405,12 @@ export class ExtLightbox {
           background: #09090b;
         }
 
-        /* ── Side Navigation Arrows ── */
+        /* ── Side Navigation Arrows (Fixed Center Alignment) ── */
         .ext-lightbox-nav {
           position: absolute;
           top: 50%;
-          transform: translateY(-50%);
+          transform: translateY(-50%) scale(1);
+          transform-origin: center center;
           background: rgba(255, 255, 255, 0.12);
           backdrop-filter: blur(24px) saturate(1.8);
           -webkit-backdrop-filter: blur(24px) saturate(1.8);
@@ -370,20 +424,21 @@ export class ExtLightbox {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
           z-index: 25;
           padding: 0;
+          outline: none;
         }
 
         .ext-lightbox-nav:hover {
           background: rgba(255, 255, 255, 0.24);
           border-color: rgba(255, 255, 255, 0.4);
-          transform: translateY(-50%) scale(1.1);
+          transform: translateY(-50%) scale(1.08);
           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 255, 255, 0.2);
         }
 
         .ext-lightbox-nav:active {
-          transform: translateY(-50%) scale(0.95);
+          transform: translateY(-50%) scale(0.94) !important;
         }
 
         .ext-lightbox-nav.prev { left: 24px; }
@@ -398,6 +453,7 @@ export class ExtLightbox {
           stroke-linecap: round;
           stroke-linejoin: round;
           display: block;
+          pointer-events: none;
         }
 
         /* ── Bottom Floating Pill Bar ── */
@@ -453,7 +509,7 @@ export class ExtLightbox {
           justify-content: center;
           opacity: 0;
           pointer-events: none;
-          transition: opacity 0.12s ease;
+          transition: opacity 0.1s ease;
         }
 
         .ext-lightbox-drm-shield.active {
@@ -462,16 +518,16 @@ export class ExtLightbox {
         }
 
         .ext-lightbox-shield-card {
-          background: rgba(24, 24, 27, 0.9);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 20px;
-          padding: 32px 40px;
+          background: rgba(24, 24, 27, 0.92);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          border-radius: 22px;
+          padding: 36px 44px;
           text-align: center;
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 16px;
-          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+          box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
           max-width: 440px;
         }
 
@@ -496,7 +552,7 @@ export class ExtLightbox {
         }
 
         .ext-lightbox-shield-title {
-          font-size: 1.15rem;
+          font-size: 1.2rem;
           font-weight: 700;
           color: #ffffff;
         }
@@ -520,7 +576,7 @@ export class ExtLightbox {
       <div class="ext-lightbox-header">
         <div class="ext-lightbox-header-left">
           <div class="ext-lightbox-pill-badge">
-            <span>${this.currentIndex + 1} / ${total}</span>
+            <span class="ext-lightbox-counter-text">${this.currentIndex + 1} / ${total}</span>
           </div>
           ${this.options.drm !== false ? `
             <div class="ext-lightbox-drm-badge" title="Protezione Anti-Screenshot Attiva">
@@ -571,7 +627,7 @@ export class ExtLightbox {
 
       <!-- Bottom Floating Pill Information Bar -->
       <div class="ext-lightbox-footer">
-        <span>${item.caption || 'Documento Ospite'}</span>
+        <span class="ext-lightbox-footer-caption">${item.caption || 'Documento Ospite'}</span>
         <span style="opacity: 0.4;">•</span>
         <span style="font-size: 0.8rem; color: #a1a1aa;">
           <kbd>←</kbd> <kbd>→</kbd> Naviga &nbsp;|&nbsp; <kbd>Rotellina</kbd> Zoom &nbsp;|&nbsp; <kbd>ESC</kbd> Chiudi
@@ -689,25 +745,20 @@ export class ExtLightbox {
   }
 
   public next(): void {
-    this.scale = 1;
-    this.rotation = 0;
-    this.translateX = 0;
-    this.translateY = 0;
+    if (this.options.items.length <= 1) return;
     this.currentIndex = (this.currentIndex + 1) % this.options.items.length;
-    this.render();
+    this.updateSlide('next');
   }
 
   public prev(): void {
-    this.scale = 1;
-    this.rotation = 0;
-    this.translateX = 0;
-    this.translateY = 0;
+    if (this.options.items.length <= 1) return;
     this.currentIndex = (this.currentIndex - 1 + this.options.items.length) % this.options.items.length;
-    this.render();
+    this.updateSlide('prev');
   }
 
   private cleanupListeners(): void {
     document.removeEventListener('keydown', this.handleKeydown);
+    document.removeEventListener('keyup', this.handleKeyup);
     window.removeEventListener('blur', this.handleWindowBlur);
     window.removeEventListener('focus', this.handleWindowFocus);
     document.removeEventListener('visibilitychange', this.handleVisibilityChange);
