@@ -15,6 +15,12 @@ export class ExtLightbox {
   private currentIndex: number = 0;
   private scale: number = 1;
 
+  private handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') this.close();
+    if (e.key === 'ArrowRight') this.next();
+    if (e.key === 'ArrowLeft') this.prev();
+  };
+
   constructor(options: ExtLightboxOptions) {
     this.options = options;
     this.currentIndex = options.startIndex || 0;
@@ -22,6 +28,8 @@ export class ExtLightbox {
 
   public open(index: number = 0): void {
     this.currentIndex = index;
+    document.removeEventListener('keydown', this.handleKeydown);
+    document.addEventListener('keydown', this.handleKeydown);
     this.render();
   }
 
@@ -169,7 +177,7 @@ export class ExtLightbox {
         </button>
       </div>
 
-      <div class="ext-lightbox-viewport">
+      <div class="ext-lightbox-viewport" id="viewport">
         <button class="ext-lightbox-nav prev" id="prev" title="Previous">
           <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
         </button>
@@ -194,10 +202,21 @@ export class ExtLightbox {
     const prevBtn = this.overlay.querySelector('#prev')!;
     const nextBtn = this.overlay.querySelector('#next')!;
     const img = this.overlay.querySelector('#img') as HTMLImageElement;
+    const viewport = this.overlay.querySelector('#viewport') as HTMLElement;
 
-    closeBtn.addEventListener('click', () => this.close());
-    prevBtn.addEventListener('click', () => this.prev());
-    nextBtn.addEventListener('click', () => this.next());
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); this.close(); });
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); this.prev(); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); this.next(); });
+
+    this.overlay.addEventListener('click', (e) => {
+      if (e.target === this.overlay) this.close();
+    });
+
+    if (viewport) {
+      viewport.addEventListener('click', (e) => {
+        if (e.target === viewport) this.close();
+      });
+    }
 
     // Wheel zoom
     img.addEventListener('wheel', (e) => {
@@ -207,13 +226,13 @@ export class ExtLightbox {
       img.style.transform = `scale(${this.scale})`;
     });
 
-    const handleKeydown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') this.close();
-      if (e.key === 'ArrowRight') this.next();
-      if (e.key === 'ArrowLeft') this.prev();
-    };
-
-    document.addEventListener('keydown', handleKeydown);
+    // Error handling for missing images
+    img.addEventListener('error', () => {
+      const footer = this.overlay?.querySelector('.ext-lightbox-footer');
+      if (footer && !footer.innerHTML.includes('non disponibile')) {
+        footer.innerHTML += ' <span style="color: #ef4444; font-size: 0.8rem; margin-left: 8px;">(Non disponibile)</span>';
+      }
+    });
   }
 
   public next(): void {
@@ -229,6 +248,7 @@ export class ExtLightbox {
   }
 
   public close(): void {
+    document.removeEventListener('keydown', this.handleKeydown);
     if (this.overlay) {
       this.overlay.remove();
       this.overlay = undefined;
